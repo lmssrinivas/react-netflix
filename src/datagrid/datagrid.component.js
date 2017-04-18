@@ -57,9 +57,12 @@ class DataGridComponent extends React.Component{
                     rating:'TV-MA',
                     genre:'Comic Book TV Shows'
                 }
-            ]
+            ],
+            tableData:[]
+
         }
 
+        this.state.tableData = this.state.data;
         this.getData();
     }
 
@@ -68,6 +71,53 @@ class DataGridComponent extends React.Component{
 
         axios.get('./data.xlsx',config).then(response=>{
 
+            this.state.tableData = this.state.data;
+        })
+
+    }
+    filterData(event){
+
+
+        let tableData=[];
+        let data = [... this.state.data];
+        let value = event.target.value.toLowerCase();
+        value= value.trim();
+
+        if(!value){
+            tableData = data;
+        }else{
+
+            data.map(item => {
+
+                for( let key in item) {
+
+                    let type = typeof item[key];
+                    if(type =='string'){
+
+                        let index = item[key].toLowerCase().indexOf(value);
+                        if(index >-1){
+                            tableData.push(item);
+                            break;
+                        }
+                    };
+                }
+            });
+        }
+
+        this.setState({
+            tableData
+        })
+    }
+
+    sortData(key){
+        let tableData =[...this.state.tableData];
+        tableData.sort(function (a, b) {
+            return b[key] - a[key]
+        });
+
+
+        this.setState({
+            tableData
         })
 
     }
@@ -76,24 +126,30 @@ class DataGridComponent extends React.Component{
         return (
             <div>
                 <div className="panel panel-default">
-                    <div className="panel-heading">Panel heading</div>
+
+                    <div className="input-group input-group-lg">
+                        <span className="input-group-addon" id="sizing-addon1">
+                            <span className="glyphicon glyphicon-search"></span>
+                        </span>
+                        <input type="text" onChange={this.filterData.bind(this)} className="form-control" placeholder="Username" aria-describedby="sizing-addon1"/>
+                    </div>
 
                     <table className="table">
                         <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Release Year</th>
-                            <th>Rating</th>
-                            <th>Genre</th>
+                            <th onClick={() => { this.sortData('title') }}>Title</th>
+                            <th onClick={() => { this.sortData('year') }}>Release Year</th>
+                            <th onClick={() => { this.sortData('rating') }}>Rating</th>
+                            <th onClick={() => { this.sortData('genre') }}>Genre</th>
                         </tr>
                         </thead>
                         <tbody>
 
-                        {this.state.data.map(val=>{
+                        {this.state.tableData.map((val,key)=>{
 
                             return (
                                 <tr>
-                                    <td>{val.title}</td>
+                                    <td >{val.title}</td>
                                     <td>{val.year}</td>
                                     <td>{val.rating}</td>
                                     <td>{val.genre}</td>
