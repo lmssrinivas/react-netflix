@@ -125,17 +125,18 @@ class DataGridComponent extends React.Component{
     render(){
         return (
             <div>
-                <div className="panel panel-default">
+                <div className="container">
 
-                    <div className="input-group input-group-lg">
+                    <div className="input-group input-group-lg page-header">
                         <span className="input-group-addon" id="sizing-addon1">
                             <span className="glyphicon glyphicon-search"></span>
                         </span>
-                        <input type="text" onChange={this.filterData.bind(this)} className="form-control" placeholder="Username" aria-describedby="sizing-addon1"/>
+                        <input type="text" onChange={this.filterData.bind(this)} className="form-control"
+                               placeholder="Filter the data..." aria-describedby="sizing-addon1"/>
                     </div>
 
-                    <table className="table">
-                        <thead>
+                    <table className="table table-hover">
+                        <thead className="btn-primary">
                         <tr>
                             <th onClick={() => { this.sortData('title') }}>Title</th>
                             <th onClick={() => { this.sortData('year') }}>Release Year</th>
