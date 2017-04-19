@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import DataGridComponent from './datagrid/datagrid.component'
+import DataGridContainer from './datagrid/datagrid.container'
 
 class App extends Component {
   render() {
@@ -12,7 +12,7 @@ class App extends Component {
           <h2>Welcome to Netflix Originals</h2>
         </div>
         <div className="App-intro">
-            <DataGridComponent/>
+            <DataGridContainer/>
         </div>
       </div>
     );

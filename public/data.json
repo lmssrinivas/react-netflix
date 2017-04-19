@@ -1,0 +1,46 @@
+{
+  "data": [
+    {
+      "title": "House of Cards: Season 5",
+      "year": "2017",
+      "rating": "TV-MA",
+      "genre": "Crime TV Shows"
+    },
+    {
+      "title": "The Crown: Season 1",
+      "year": "2016",
+      "rating": "TV-MA",
+      "genre": "British TV Shows"
+    },
+    {
+      "title": "Stranger Things: Season 1",
+      "year": "2016",
+      "rating": "TV-14",
+      "genre": "TV Sci-Fi and Fantasy"
+    },
+    {
+      "title": "Orange is the New Black: Season 5",
+      "year": "2017",
+      "rating": "TV-MA",
+      "genre": "TV Dramedies"
+    },
+    {
+      "title": "Narcos: Season 2",
+      "year": "2016",
+      "rating": "TV-MA",
+      "genre": "Crime TV Shows"
+    },
+    {
+      "title": "Sense8: Season 2",
+      "year": "2017",
+      "rating": "TV-MA",
+      "genre": "TV Sci-Fi and Fantasy"
+    },
+    {
+      "title": "Luke Cage: Season 1",
+      "year": "2016",
+      "rating": "TV-MA",
+      "genre": "Comic Book TV Shows"
+    }
+  ]
+}
