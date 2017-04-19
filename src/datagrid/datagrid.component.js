@@ -1,6 +1,4 @@
-/**
- * Created by mlingolu on 4/17/17.
- */
+
 
 import React from 'react';
 import axios from 'axios';
@@ -58,12 +56,19 @@ class DataGridComponent extends React.Component{
                     genre:'Comic Book TV Shows'
                 }
             ],
-            tableData:[]
+            tableData:[],
+            sort:{
+                genre : false,
+                title:false,
+                rating:false,
+                year:false
+            }
 
         }
 
         this.state.tableData = this.state.data;
         this.getData();
+        this.sortData('title');
     }
 
     getData(){
@@ -110,15 +115,27 @@ class DataGridComponent extends React.Component{
     }
 
     sortData(key){
+
+        let sort = this.state.sort;
+        sort[key] = !sort[key];
+
         let tableData =[...this.state.tableData];
+
         tableData.sort(function (a, b) {
-            return b[key] - a[key]
+            if(sort[key]){
+                return b[key] > a[key]
+            }else{
+                return a[key] > b[key]
+            }
+
         });
 
-
+        this.setState({
+            sort
+        });
         this.setState({
             tableData
-        })
+        });
 
     }
 
@@ -138,10 +155,34 @@ class DataGridComponent extends React.Component{
                     <table className="table table-hover">
                         <thead className="btn-primary">
                         <tr>
-                            <th onClick={() => { this.sortData('title') }}>Title</th>
-                            <th onClick={() => { this.sortData('year') }}>Release Year</th>
-                            <th onClick={() => { this.sortData('rating') }}>Rating</th>
-                            <th onClick={() => { this.sortData('genre') }}>Genre</th>
+                            <th onClick={() => { this.sortData('title') }}>
+                                Title
+                                {this.state.sort.title ?
+                                    <span className="glyphicon glyphicon-chevron-up"></span> :
+                                    <span className="glyphicon glyphicon-chevron-down"></span>
+                                }
+                            </th>
+                            <th onClick={() => { this.sortData('year') }}>
+                                Release Year
+                                {this.state.sort.year ?
+                                    <span className="glyphicon glyphicon-chevron-up"></span> :
+                                    <span className="glyphicon glyphicon-chevron-down"></span>
+                                }
+                            </th>
+                            <th onClick={() => { this.sortData('rating') }}>
+                                Rating
+                                {this.state.sort.rating ?
+                                    <span className="glyphicon glyphicon-chevron-up"></span> :
+                                    <span className="glyphicon glyphicon-chevron-down"></span>
+                                }
+                            </th>
+                            <th onClick={() => { this.sortData('genre') }}>
+                                Genre
+                                {this.state.sort.genre ?
+                                    <span className="glyphicon glyphicon-chevron-up"></span> :
+                                    <span className="glyphicon glyphicon-chevron-down"></span>
+                                }
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -149,7 +190,7 @@ class DataGridComponent extends React.Component{
                         {this.state.tableData.map((val,key)=>{
 
                             return (
-                                <tr>
+                                <tr key={val.title}>
                                     <td >{val.title}</td>
                                     <td>{val.year}</td>
                                     <td>{val.rating}</td>
@@ -159,9 +200,13 @@ class DataGridComponent extends React.Component{
                             )
 
                         })}
-
                         </tbody>
                     </table>
+                    {this.state.tableData.length==0 &&
+                    <h2>
+                        No Records found.
+                    </h2>
+                    }
 
                 </div>
             </div>
